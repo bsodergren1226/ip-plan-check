@@ -1,3 +1,4 @@
+
 name: IP plan check
 
 on:
@@ -6,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   check:
@@ -20,4 +22,19 @@ jobs:
       - name: Check the address plan
         id: check
         shell: bash
-        run: docker run --rm ipcheck | tee report.txt
+        run: |
+          docker run --rm ipcheck > report.txt 2>&1
+          result=$?
+          cat report.txt
+          echo "exit_code=$result" >> "$GITHUB_OUTPUT"
+          exit "$result"
+
+      - name: Open an issue with the report
+        if: failure() && steps.check.outcome == 'failure' && github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh issue create \
+            --title "IP plan check failed" \
+            --body-file report.txt
