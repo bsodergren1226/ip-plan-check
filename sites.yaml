@@ -12,7 +12,7 @@ sites:
       - id: 20
         name: voice
         subnet: 10.1.20.0/24
-        gateway: 10.1.20.1
+        gateway: 10.1.21.1
         hosts: 150
       - id: 30
         name: servers
