@@ -1,0 +1,23 @@
+name: IP plan check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build checker image
+        run: docker build -t ipcheck .
+
+      - name: Check the address plan
+        id: check
+        shell: bash
+        run: docker run --rm ipcheck | tee report.txt
