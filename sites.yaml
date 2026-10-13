@@ -1,0 +1,61 @@
+# Address plan for three sites. The network team wants every change
+# to this file checked before it is used to build router configs.
+sites:
+  - name: HQ
+    vlans:
+      - id: 10
+        name: users
+        subnet: 10.1.10.0/24
+        gateway: 10.1.10.1
+        hosts: 200
+      - id: 20
+        name: voice
+        subnet: 10.1.20.0/24
+        gateway: 10.1.20.1
+        hosts: 150
+      - id: 30
+        name: servers
+        subnet: 10.1.30.0/26
+        gateway: 10.1.30.1
+        hosts: 40
+      - id: 99
+        name: mgmt
+        subnet: 10.1.99.0/28
+        gateway: 10.1.99.1
+        hosts: 10
+
+  - name: BRANCH1
+    vlans:
+      - id: 10
+        name: users
+        subnet: 10.2.10.0/24
+        gateway: 10.2.10.1
+        hosts: 80
+      - id: 20
+        name: voice
+        subnet: 10.2.20.0/25
+        gateway: 10.2.21.1
+        hosts: 60
+      - id: 99
+        name: mgmt
+        subnet: 10.2.99.0/28
+        gateway: 10.2.99.1
+        hosts: 8
+
+  - name: BRANCH2
+    vlans:
+      - id: 10
+        name: users
+        subnet: 10.3.10.0/25
+        gateway: 10.3.10.1
+        hosts: 200
+      - id: 10
+        name: voice
+        subnet: 10.3.20.0/26
+        gateway: 10.3.20.1
+        hosts: 30
+      - id: 99
+        name: mgmt
+        subnet: 10.1.30.32/28
+        gateway: 10.1.30.33
+        hosts: 8
